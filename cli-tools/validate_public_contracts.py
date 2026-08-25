@@ -426,7 +426,7 @@ def check_contract(
     expected_scalars = {
         "contract_version": 2,
         "product_name": "nddev-opencode-app",
-        "github_repository": "NDDev-it-com/nddev-opencode-app",
+        "github_repository": "rldyourmnd/nddev-opencode-app",
         "license": "AGPL-3.0-or-later",
         "manifest_ref": "build/manifest.json",
         "version_ref": "build/version.json",

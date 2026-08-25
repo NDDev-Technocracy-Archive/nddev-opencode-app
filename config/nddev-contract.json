@@ -2,7 +2,7 @@
   "contract_version": 2,
   "product_name": "nddev-opencode-app",
   "display_name": "NDDev OpenCode Setup Manager",
-  "github_repository": "NDDev-it-com/nddev-opencode-app",
+  "github_repository": "rldyourmnd/nddev-opencode-app",
   "license": "AGPL-3.0-or-later",
   "description": "Dependency-free manager that plans, installs, updates, switches, restores, migrates, launches, and removes a native OpenCode nddev-builder setup in an explicit isolated target.",
   "manifest_ref": "build/manifest.json",
