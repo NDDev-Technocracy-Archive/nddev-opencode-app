@@ -134,3 +134,11 @@ For additional caller-side enforcement, `python3 -B` is also safe:
 ```bash
 python3 -B cli-tools/validate_public_contracts.py
 ```
+
+## Source validation
+
+Run `just check` or `just verify` for the static public contract validator and
+command formatting. The existing `test.yml` workflow runs those commands through
+the shared source checks and keeps the complete security scan in its scheduled
+or manual source path. Source validation reads module metadata and code; it does
+not run an OpenCode/provider/account operation.

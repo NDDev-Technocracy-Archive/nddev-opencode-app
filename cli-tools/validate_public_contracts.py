@@ -639,15 +639,28 @@ def check_provider_protocol(
             workflow = (workflows / "test.yml").read_text(encoding="utf-8")
             for fragment in (
                 "permissions:\n  contents: read",
-                "runs-on: ubuntu-24.04",
                 "name: test",
-                "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1",
-                "run: python3 cli-tools/validate_public_contracts.py",
+                "uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/check.yml@",
+                "uses: NDDev-Technocracy-OpenNetwork/nddev-ci/.github/workflows/security.yml@",
             ):
                 if fragment not in workflow:
                     errors.append(
-                        f"test.yml is missing required release-check fragment: {fragment!r}"
+                        f"test.yml is missing required source-check fragment: {fragment!r}"
                     )
+            references = re.findall(
+                r"(?m)^\s+uses:\s+NDDev-Technocracy-OpenNetwork/nddev-ci/"
+                r"\.github/workflows/(check|security)\.yml@([0-9a-f]{40})\b",
+                workflow,
+            )
+            if (
+                len(references) != 2
+                or {name for name, _revision in references} != {"check", "security"}
+                or len({revision for _name, revision in references}) != 1
+            ):
+                errors.append("test.yml must use both shared source entry points at one immutable revision")
+            commands = check_text("justfile", errors)
+            if "python3 -B cli-tools/validate_public_contracts.py" not in commands:
+                errors.append("justfile must retain the actual public contract validator command")
             if "pull_request_target" in workflow or "${{ secrets" in workflow:
                 errors.append("test.yml may not use privileged PR triggers or repository secrets")
 
